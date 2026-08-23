@@ -59,18 +59,20 @@ function ViewController() {
   const map = useMap();
 
   useEffect(() => {
-    const update = () => {
+    const fit = () => {
       map.invalidateSize();
-      map.setView(CENTER, 18.25, { animate: false });
+      map.fitBounds(IMAGE_BOUNDS, { padding: [16, 16] });
     };
 
-    update();
-    const a = setTimeout(update, 150);
-    const b = setTimeout(update, 500);
+    fit();
+    const a = setTimeout(fit, 150);
+    const b = setTimeout(fit, 500);
+    window.addEventListener("resize", fit);
 
     return () => {
       clearTimeout(a);
       clearTimeout(b);
+      window.removeEventListener("resize", fit);
     };
   }, [map]);
 
@@ -230,12 +232,14 @@ export default function HomeMap() {
       <MapContainer
         center={CENTER}
         zoom={18.25}
-        minZoom={17}
+        minZoom={15.75}
         maxZoom={21}
         zoomControl
         dragging
         scrollWheelZoom
         doubleClickZoom
+        maxBounds={IMAGE_BOUNDS}
+        maxBoundsViscosity={1.0}
         style={{ width: "100%", height: "100%" }}
       >
         <ImageOverlay
@@ -343,6 +347,7 @@ export default function HomeMap() {
 
       <style>{`
         .naksha-map {
+          position:relative;
           width:100%;
           height:100%;
           overflow:hidden;
@@ -466,10 +471,22 @@ export default function HomeMap() {
           color:#34d399;
         }
 
+        .leaflet-control-zoom {
+          border: 2px solid #000 !important;
+          box-shadow: 2px 2px 0 rgba(0,0,0,0.5) !important;
+          border-radius: 3px !important;
+          overflow: hidden;
+        }
+
         .leaflet-control-zoom a {
           background:#171b2b !important;
           color:#fff !important;
           border-color:rgba(255,255,255,.1) !important;
+        }
+
+        .leaflet-control-zoom a:hover {
+          background:#232842 !important;
+          color:#a78bfa !important;
         }
 
         .leaflet-control-scale-line {

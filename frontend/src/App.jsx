@@ -13,8 +13,7 @@ function ProtectedRoute({ children }) {
   return (
     <>
       <NavBar />
-      {/* padding-top clears the fixed nav bar; box-sizing keeps the math simple */}
-      <div style={{ paddingTop: 48, height: "100vh", boxSizing: "border-box" }}>{children}</div>
+      <div style={{ marginTop: 48, height: "calc(100dvh - 48px)", overflow: "hidden" }}>{children}</div>
     </>
   );
 }
