@@ -7,7 +7,7 @@ export default function NavBar() {
 
   function handleLogout() {
     logout();
-    navigate("/login");
+    navigate("/");
   }
 
   function isActive(path) {
@@ -16,9 +16,9 @@ export default function NavBar() {
 
   return (
     <nav className="hud-nav">
-      <strong className="hud-brand">
+      <Link to="/" className="hud-brand">
         Campus<span className="accent">Pulse</span>
-      </strong>
+      </Link>
 
       <Link to="/home" className={`hud-link ${isActive("/home") ? "active" : ""}`}>
         Map
@@ -60,6 +60,8 @@ export default function NavBar() {
           display: none;
         }
         .hud-brand {
+          text-decoration: none;
+          color: var(--color-text);
           font-family: var(--font-pixel);
           font-size: 0.65rem;
           flex-shrink: 0;

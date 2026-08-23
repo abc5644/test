@@ -229,7 +229,7 @@ export default function Profile() {
 
   function handleLogout() {
     logout();
-    navigate("/login");
+    navigate("/");
   }
 
 

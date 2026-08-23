@@ -18,7 +18,7 @@ export default function NewPinForm({ position, onSubmit, onCancel, onMediaSelect
         <select className="select" value={type} onChange={(e) => setType(e.target.value)}>
           {PIN_TYPES.map((t) => (
             <option key={t} value={t}>
-              {PIN_TYPE_META[t].emoji} {PIN_TYPE_META[t].label}
+              {PIN_TYPE_META[t].label}
             </option>
           ))}
         </select>

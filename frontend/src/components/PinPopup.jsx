@@ -1,13 +1,13 @@
 import { PIN_TYPE_META } from "../pinTypes.js";
 
 export default function PinPopup({ pin, onUpvote, onDelete, canDelete }) {
-  const meta = PIN_TYPE_META[pin.type] || { label: pin.type, color: "#9C9AB8", emoji: "📍" };
+  const meta = PIN_TYPE_META[pin.type] || { label: pin.type, color: "#9C9AB8" };
 
   return (
     <div className="stack" style={{ minWidth: 180 }}>
       <div className="type-chip" style={{ background: `${meta.color}22`, color: meta.color }}>
         <span className="type-dot" style={{ background: meta.color }} />
-        {meta.emoji} {meta.label}
+        {meta.label}
       </div>
 
       <strong style={{ fontFamily: "var(--font-display)" }}>{pin.label}</strong>
