@@ -7,3 +7,4 @@ pyjwt==2.9.0
 pydantic
 python-multipart==0.0.9
 email-validator
+certifi
