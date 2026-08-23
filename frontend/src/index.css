@@ -52,6 +52,19 @@ body {
   height: 100%;
   overflow: hidden;
 }
+/* Scrollable but scrollbar-less — used for the page wrapper so Community
+   and Profile can scroll on phones without a visible scrollbar track. */
+.app-scroll {
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* old Edge/IE */
+}
+
+.app-scroll::-webkit-scrollbar {
+  display: none; /* Chrome/Safari/Vercel's mobile browser */
+}
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-pixel);

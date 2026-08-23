@@ -51,10 +51,18 @@ export default function NavBar() {
           z-index: 2000;
           box-sizing: border-box;
           box-shadow: 0 3px 0 rgba(0,0,0,0.4);
+          overflow-x: auto;
+          overflow-y: hidden;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+        }
+        .hud-nav::-webkit-scrollbar {
+          display: none;
         }
         .hud-brand {
           font-family: var(--font-pixel);
           font-size: 0.65rem;
+          flex-shrink: 0;
         }
         .accent { color: var(--color-accent); }
         .hud-link {
@@ -64,6 +72,8 @@ export default function NavBar() {
           text-decoration: none;
           padding: 0.35rem 0.5rem;
           border-radius: var(--radius-md);
+          flex-shrink: 0;
+          white-space: nowrap;
         }
         .hud-link:hover {
           color: var(--color-text);
@@ -75,6 +85,8 @@ export default function NavBar() {
         }
         .hud-logout {
           margin-left: auto;
+          flex-shrink: 0;
+          white-space: nowrap;
           font-family: var(--font-pixel);
           font-size: 0.55rem;
           background: var(--color-surface-2);
