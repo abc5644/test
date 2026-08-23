@@ -1,14 +1,274 @@
+/* ---------- Design tokens ---------- */
+:root {
+  --font-pixel: "Press Start 2P", monospace;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+
+  --color-bg: #0b0d1f;
+  --color-surface: #151833;
+  --color-surface-2: #1e2242;
+  --color-border: #7c6ff0;
+  --color-border-dark: #3a3d6e;
+  --color-text: #f5f3ff;
+  --color-text-muted: #9c9ab8;
+
+  --color-accent: #7c6ff0;
+  --color-accent-hover: #6558e0;
+  --color-accent-soft: rgba(124, 111, 240, 0.18);
+
+  --color-study: #5eead4;
+  --color-crowded: #fb7185;
+  --color-silent: #a78bfa;
+  --color-event: #fbbf24;
+  --color-sound: #38bdf8;
+
+  --radius-lg: 4px;
+  --radius-md: 3px;
+  --radius-pill: 4px;
+
+  --pixel-shadow: 3px 3px 0 #000, 4px 4px 0 var(--color-accent);
+}
+
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-  background: #f8fafc;
-  color: #0f172a;
+  font-family: var(--font-body);
+  background: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  image-rendering: pixelated;
 }
 
 #root {
   min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-pixel);
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+  margin: 0 0 0.75rem;
+  text-transform: uppercase;
+}
+
+a {
+  color: var(--color-accent);
+}
+
+/* ---------- Layout primitives ---------- */
+.page {
+  max-width: 420px;
+  margin: 4rem auto;
+  padding: 0 1.25rem;
+}
+
+.card {
+  background: var(--color-surface);
+  border: 3px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--pixel-shadow);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.muted {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}
+
+.error-text {
+  color: var(--color-crowded);
+  font-size: 0.85rem;
+  margin: 0;
+  font-family: var(--font-display);
+}
+
+/* ---------- Form controls ---------- */
+.field-label {
+  font-size: 0.65rem;
+  color: var(--color-accent);
+  font-family: var(--font-pixel);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.4rem;
+  display: block;
+}
+
+.input,
+.select,
+textarea.input {
+  width: 100%;
+  background: var(--color-surface-2);
+  border: 2px solid var(--color-border-dark);
+  color: var(--color-text);
+  border-radius: var(--radius-md);
+  padding: 0.65rem 0.85rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.input:focus,
+.select:focus {
+  border-color: var(--color-accent);
+  box-shadow: 2px 2px 0 var(--color-accent-soft);
+}
+
+.select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239C9AB8' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.85rem center;
+  padding-right: 2.25rem;
+  cursor: pointer;
+}
+
+/* ---------- Buttons (chunky HUD pill) ---------- */
+.btn {
+  font-family: var(--font-pixel);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border-radius: var(--radius-pill);
+  padding: 0.75rem 1.1rem;
+  border: 2px solid #000;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 #000;
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+
+.btn:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 #000;
+}
+
+.btn-primary {
+  background: var(--color-accent);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: var(--color-accent-hover);
+}
+
+.btn-ghost {
+  background: var(--color-surface-2);
+  border: 2px solid var(--color-border-dark);
+  color: var(--color-text);
+  box-shadow: 3px 3px 0 var(--color-border-dark);
+}
+
+.btn-ghost:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+/* ---------- Pin type chip (badge style) ---------- */
+.type-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-pixel);
+  font-size: 0.6rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: var(--radius-pill);
+  text-transform: uppercase;
+  border: 2px solid currentColor;
+}
+
+.type-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ---------- Pulse map marker (badge, no soft glow) ---------- */
+.pulse-marker {
+  position: relative;
+  width: 22px;
+  height: 22px;
+}
+
+.pulse-marker .pulse-dot {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--pin-color, var(--color-accent));
+  border: 3px solid #000;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+}
+
+.pulse-marker .pulse-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--pin-color, var(--color-accent));
+  animation: pulseRing 1.8s steps(6) infinite;
+}
+
+@keyframes pulseRing {
+  0% {
+    transform: scale(0.55);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.9);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse-marker .pulse-ring {
+    animation: none;
+  }
+}
+
+/* ---------- HUD top bar strip (Viewing: community banner) ---------- */
+.card:has(strong) {
+  font-family: var(--font-pixel);
+  font-size: 0.65rem;
+}
+/* ---------- Campus map polish ---------- */
+.leaflet-interactive {
+  filter: drop-shadow(2px 2px 0 rgba(0, 0, 0, 0.6));
+}
+
+.building-label {
+  background: var(--color-surface) !important;
+  border: 2px solid #000 !important;
+  border-radius: 2px !important;
+  color: var(--color-text) !important;
+  font-family: var(--font-pixel) !important;
+  font-size: 0.5rem !important;
+  padding: 3px 6px !important;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.6) !important;
+  white-space: nowrap;
+}
+
+.building-label::before {
+  display: none !important;
 }

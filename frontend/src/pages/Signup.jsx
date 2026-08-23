@@ -21,24 +21,45 @@ export default function Signup() {
   }
 
   return (
-    <div style={{ maxWidth: 360, margin: "3rem auto", padding: "0 1rem" }}>
-      <h2>Sign up</h2>
-      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-        <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required />
-        <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        {error && <p style={{ color: "crimson" }}>{error}</p>}
-        <button type="submit">Sign up</button>
-      </form>
-      <p>
-        Already have an account? <Link to="/login">Log in</Link>
-      </p>
+    <div className="page">
+      <div className="card stack">
+        <h2>Sign up</h2>
+        <form onSubmit={handleSubmit} className="stack">
+          <div>
+            <label className="field-label">Name</label>
+            <input className="input" placeholder="Your name" value={name} onChange={(e) => setName(e.target.value)} required />
+          </div>
+          <div>
+            <label className="field-label">Email</label>
+            <input
+              className="input"
+              type="email"
+              placeholder="you@nsut.ac.in"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label className="field-label">Password</label>
+            <input
+              className="input"
+              type="password"
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          {error && <p className="error-text">{error}</p>}
+          <button type="submit" className="btn btn-primary">
+            Sign up
+          </button>
+        </form>
+        <p className="muted">
+          Already have an account? <Link to="/login">Log in</Link>
+        </p>
+      </div>
     </div>
   );
 }

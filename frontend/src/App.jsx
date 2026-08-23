@@ -5,10 +5,18 @@ import Signup from "./pages/Signup.jsx";
 import HomeMap from "./pages/HomeMap.jsx";
 import Profile from "./pages/Profile.jsx";
 import Community from "./pages/Community.jsx";
+import NavBar from "./components/NavBar.jsx";
 import { isLoggedIn } from "./api.js";
 
 function ProtectedRoute({ children }) {
-  return isLoggedIn() ? children : <Navigate to="/login" replace />;
+  if (!isLoggedIn()) return <Navigate to="/login" replace />;
+  return (
+    <>
+      <NavBar />
+      {/* padding-top clears the fixed nav bar; box-sizing keeps the math simple */}
+      <div style={{ paddingTop: 48, height: "100vh", boxSizing: "border-box" }}>{children}</div>
+    </>
+  );
 }
 
 export default function App() {

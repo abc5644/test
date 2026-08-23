@@ -1,21 +1,44 @@
-export default function PinPopup({ pin, onUpvote }) {
+import { PIN_TYPE_META } from "../pinTypes.js";
+
+export default function PinPopup({ pin, onUpvote, onDelete, canDelete }) {
+  const meta = PIN_TYPE_META[pin.type] || { label: pin.type, color: "#9C9AB8", emoji: "📍" };
+
   return (
-    <div>
-      <strong>{pin.label}</strong>
-      <p style={{ margin: "0.25rem 0", fontSize: "0.85rem", color: "#475569" }}>{pin.type}</p>
-      {pin.note && <p>{pin.note}</p>}
+    <div className="stack" style={{ minWidth: 180 }}>
+      <div className="type-chip" style={{ background: `${meta.color}22`, color: meta.color }}>
+        <span className="type-dot" style={{ background: meta.color }} />
+        {meta.emoji} {meta.label}
+      </div>
+
+      <strong style={{ fontFamily: "var(--font-display)" }}>{pin.label}</strong>
+      {pin.note && <p className="muted" style={{ margin: 0 }}>{pin.note}</p>}
+
       {pin.media_url && (
-        <div style={{ marginTop: "0.5rem" }}>
+        <div>
           {pin.media_url.match(/\.(mp4|webm|mov)$/i) ? (
-            <video src={pin.media_url} controls style={{ width: "100%" }} />
+            <video src={pin.media_url} controls style={{ width: "100%", borderRadius: 8 }} />
+          ) : pin.media_url.match(/\.(jpg|jpeg|png|gif|webp)$/i) ? (
+            <img src={pin.media_url} alt={pin.label} style={{ width: "100%", borderRadius: 8 }} />
           ) : (
             <audio src={pin.media_url} controls style={{ width: "100%" }} />
           )}
         </div>
       )}
-      <button onClick={() => onUpvote(pin.id)} style={{ marginTop: "0.5rem" }}>
-        👍 {pin.votes}
-      </button>
+
+      <div className="row">
+        <button onClick={() => onUpvote(pin.id)} className="btn btn-ghost" style={{ alignSelf: "flex-start" }}>
+          👍 {pin.votes}
+        </button>
+        {canDelete && (
+          <button
+            onClick={() => onDelete(pin.id)}
+            className="btn btn-ghost"
+            style={{ color: "#FB7185", alignSelf: "flex-start" }}
+          >
+            🗑 Delete
+          </button>
+        )}
+      </div>
     </div>
   );
 }

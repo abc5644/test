@@ -5,11 +5,11 @@ get_current_user FastAPI dependency used to protect routes.
 import os
 from datetime import datetime, timedelta, timezone
 
+import bcrypt
 import jwt
 from dotenv import load_dotenv
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
-from passlib.context import CryptContext
 
 from database import users_collection
 
@@ -19,16 +19,17 @@ JWT_SECRET = os.getenv("JWT_SECRET", "dev-secret-change-me")
 JWT_ALGORITHM = os.getenv("JWT_ALGORITHM", "HS256")
 JWT_EXPIRE_MINUTES = int(os.getenv("JWT_EXPIRE_MINUTES", "1440"))
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 bearer_scheme = HTTPBearer()
 
 
 def hash_password(plain_password: str) -> str:
-    return pwd_context.hash(plain_password)
+    # bcrypt caps input at 72 bytes; hackathon-scale passwords are always under that.
+    hashed = bcrypt.hashpw(plain_password.encode("utf-8"), bcrypt.gensalt())
+    return hashed.decode("utf-8")
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
-    return pwd_context.verify(plain_password, hashed_password)
+    return bcrypt.checkpw(plain_password.encode("utf-8"), hashed_password.encode("utf-8"))
 
 
 def create_access_token(user_id: str) -> str:

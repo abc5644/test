@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { createCommunity, joinCommunity, getMyCommunities } from "../api.js";
 
 export default function Community() {
@@ -42,30 +43,64 @@ export default function Community() {
   }
 
   return (
-    <div style={{ maxWidth: 480, margin: "3rem auto", padding: "0 1rem" }}>
+    <div className="page" style={{ maxWidth: 560 }}>
       <h2>Communities</h2>
-      {error && <p style={{ color: "crimson" }}>{error}</p>}
+      {error && <p className="error-text">{error}</p>}
 
-      <h3>Create</h3>
-      <form onSubmit={handleCreate} style={{ display: "flex", gap: "0.5rem" }}>
-        <input placeholder="Community name" value={newName} onChange={(e) => setNewName(e.target.value)} required />
-        <button type="submit">Create</button>
-      </form>
+      <div className="card stack" style={{ marginBottom: "1.25rem" }}>
+        <h4 style={{ margin: 0 }}>Create a community</h4>
+        <form onSubmit={handleCreate} className="row">
+          <input
+            className="input"
+            placeholder="Community name"
+            value={newName}
+            onChange={(e) => setNewName(e.target.value)}
+            required
+          />
+          <button type="submit" className="btn btn-primary">
+            Create
+          </button>
+        </form>
+      </div>
 
-      <h3>Join</h3>
-      <form onSubmit={handleJoin} style={{ display: "flex", gap: "0.5rem" }}>
-        <input placeholder="Join code" value={joinCode} onChange={(e) => setJoinCode(e.target.value)} required />
-        <button type="submit">Join</button>
-      </form>
+      <div className="card stack" style={{ marginBottom: "1.25rem" }}>
+        <h4 style={{ margin: 0 }}>Join with a code</h4>
+        <form onSubmit={handleJoin} className="row">
+          <input
+            className="input"
+            placeholder="Join code"
+            value={joinCode}
+            onChange={(e) => setJoinCode(e.target.value)}
+            required
+          />
+          <button type="submit" className="btn btn-primary">
+            Join
+          </button>
+        </form>
+      </div>
 
-      <h3>Your communities</h3>
-      <ul>
+      <h4>Your communities</h4>
+      <div className="stack">
         {communities.map((c) => (
-          <li key={c.id}>
-            {c.name} — code: <strong>{c.join_code}</strong> ({c.members.length}/10 members)
-          </li>
+          <div key={c.id} className="card row" style={{ justifyContent: "space-between" }}>
+            <div>
+              <strong style={{ fontFamily: "var(--font-display)" }}>{c.name}</strong>
+              <p className="muted" style={{ margin: "0.2rem 0 0" }}>
+                Code: <strong style={{ color: "var(--color-text)" }}>{c.join_code}</strong> ·{" "}
+                {c.members.length}/10 members
+              </p>
+            </div>
+            <Link
+              to={`/home?community=${c.id}&name=${encodeURIComponent(c.name)}`}
+              className="btn btn-ghost"
+              style={{ textDecoration: "none", whiteSpace: "nowrap" }}
+            >
+              View on map
+            </Link>
+          </div>
         ))}
-      </ul>
+        {communities.length === 0 && <p className="muted">You haven't joined any communities yet.</p>}
+      </div>
     </div>
   );
 }
