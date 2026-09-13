@@ -13,7 +13,16 @@ function ProtectedRoute({ children }) {
   return (
     <>
       <NavBar />
-      <div className="app-scroll" style={{ marginTop: 48, height: "calc(100dvh - 48px)" }}>{children}</div>
+      <div
+  className="app-scroll"
+  style={{
+    marginTop: 48,
+    height: "calc(100dvh - 48px)",
+    background: "#0b0d1f",
+  }}
+>
+  {children}
+</div>
     </>
   );
 }
