@@ -319,7 +319,7 @@ export default function HomeMap() {
       )}
 
       <style>{`
-        .naksha-map{position:relative;width:100%;height:100%;overflow:hidden;background:#171b2b}
+        .naksha-map{position:relative;width:100%;height:100%;overflow:hidden;background:#0b0d1f}
         .campus-pin-wrap{background:transparent!important;border:0!important}
         .campus-pin{width:34px;height:34px;background:var(--pin);border:2px solid #fff;border-radius:50% 50% 50% 0;transform:rotate(-45deg);box-shadow:0 4px 10px rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center}
         .campus-pin-inner{width:22px;height:22px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;line-height:1;transform:rotate(45deg);overflow:hidden}
