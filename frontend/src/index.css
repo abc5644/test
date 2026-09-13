@@ -55,6 +55,7 @@ body {
 /* Scrollable but scrollbar-less — used for the page wrapper so Community
    and Profile can scroll on phones without a visible scrollbar track. */
 .app-scroll {
+  background: var(--color-bg);
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
